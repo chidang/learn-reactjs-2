@@ -11,7 +11,7 @@ class App extends Component {
     showPersons: false
   }
 
-  togglePersonsHandle = () => {
+  togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState( {showPersons: !doesShow} )
   }
@@ -22,6 +22,18 @@ class App extends Component {
     this.setState({persons: persons});
   }
 
+  nameChangedHanler = (event, personId) => {
+    const personIndex = this.state.persons.findIndex((p) => {
+      return p.id === personId;
+    });
+
+    const person = {...this.state.persons[personIndex]}
+    person.name = event.target.value
+    let persons = [...this.state.persons]
+    persons[personIndex] = person
+    this.setState({persons: persons})
+  }
+
   render () {
     let persons = null
 
@@ -30,12 +42,13 @@ class App extends Component {
         <div>
           {
             this.state.persons.map((person, index) => {
-            return <Person
-              key={person.id}
-              name={person.name}
-              age={person.age}
-              click={(index) => this.removePerson(index)}
-              />
+              return <Person
+                key={person.id}
+                name={person.name}
+                age={person.age}
+                click={(index) => this.removePerson(index)}
+                changed={(event) => this.nameChangedHanler(event, person.id)}
+                />
             })
           }
         </div>
@@ -45,7 +58,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
-        <button onClick={this.togglePersonsHandle}>Toggle persons</button>
+        <button onClick={this.togglePersonsHandler}>Toggle persons</button>
         {persons}
       </div>
     )
