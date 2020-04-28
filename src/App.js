@@ -1,75 +1,55 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 
-const App = props => {
-  const [ personsState, setPersonState ] = useState({
+class App extends Component {
+  state = {
     persons: [
-      { id: 'a1', name: 'Chi', age: 32 },
-      { id: 'a2', name: 'Khanh', age: 31},
-      { id: 'a3', name: 'Nhat', age: 4}
+      {id: 'a1', name: 'Chi', age: 30},
+      {id: 'a2', name: 'Khanh', age: 29}
     ],
-    otherState: 'some other value',
-    showPerson: false
-  });
-
-  const togglePersonsHandler = () => {
-    const showPerson = personsState.showPerson
-    setPersonState(prevState => ({
-      ...prevState,
-      showPerson: !showPerson
-     }));
-
+    showPersons: false
   }
 
-  const deletePersonHandler = (personIndex) => {
-    console.log(personIndex)
-    const persons = personsState.persons;
-    persons.splice(personIndex, 1);
-    setPersonState(prevState => ({
-      ...prevState,
-      persons: persons
-    }))
+  togglePersonsHandle = () => {
+    const doesShow = this.state.showPersons;
+    this.setState( {showPersons: !doesShow} )
   }
 
-  const style = {
-    backgroundColor: 'white',
-    font: 'inherit',
-    border: '2px solid blue',
-    padding: '5px',
-    cursor: 'pointer'
-  };
+  removePerson = (index) => {
+    const persons = [...this.state.persons];
+    persons.splice(index, 1);
+    this.setState({persons: persons});
+  }
 
-  let persons = null;
+  render () {
+    let persons = null
 
-  if(personsState.showPerson){
-    persons = (
-      <div>
-        {
-          personsState.persons.map((person, index) => {
-            return <Person 
+    if (this.state.showPersons){
+      persons = (
+        <div>
+          {
+            this.state.persons.map((person, index) => {
+            return <Person
               key={person.id}
-              click={(index) => deletePersonHandler(index)}
-              name={person.name} 
-              age={person.age} />
-          })
-        }
+              name={person.name}
+              age={person.age}
+              click={(index) => this.removePerson(index)}
+              />
+            })
+          }
+        </div>
+      )
+    } 
+
+    return (
+      <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        <button onClick={this.togglePersonsHandle}>Toggle persons</button>
+        {persons}
       </div>
     )
   }
-
-  return (
-    <div className="App">
-      <h1>This is my React App</h1>
-      <button 
-        style={style}
-        onClick={() => togglePersonsHandler()}
-      >
-        Toggle Person
-      </button>
-      {persons}
-    </div>
-  )
 }
 
 export default App;
