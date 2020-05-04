@@ -33,7 +33,32 @@ class App extends Component {
     this.setState({persons: persons})
   }
 
+  static getDerivedStateFromProps(props, state){
+    console.log('[App.js] getDerivedStateFromProps');
+    return state;
+  }
+
+  shouldComponentUpdate(nextProps, nextState){
+    console.log('[App.js] shouldComponentUpdate');
+    return true;
+  }
+
+
+  getSnapshotBeforeUpdate(prevProps, prevState){
+    console.log('[App.js] getSnapshotBeforeUpdate');
+    return {message: 'My snapshot'}
+  }
+
+  componentDidUpdate(){
+    console.log('[App.js] componentDidUpdate');
+  }
+
+  componentDidMount(){
+    console.log('[App.js] componentDidMount')
+  } 
+
   render () {
+    console.log('[App.js] render')
     return (
       <div className='App'>
         <h1>This is my Reactjs App</h1>

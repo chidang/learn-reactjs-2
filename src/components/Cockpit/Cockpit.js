@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Cockpit.css';
 import Persons from '../Persons/Persons';
 
-const Cockpit = (props) => {
-    let personsEl  = null
+const cockpit = props => {
+  // useEffect(() => {
+  //   console.log('[Cockpit.js] useEffect');
+  // });
 
-    if(props.showPersons){
-      personsEl = <Persons 
-        persons={props.persons}
-        click={(index) => props.removePersonHandler(index)}
-        changed={(event, personId) => props.changePersonHandler(event, personId)}
-      />
-    }
+  let personsEl  = null;
+
+  if(props.showPersons){
+    personsEl = <Persons 
+      persons={props.persons}
+      click={(index) => props.removePersonHandler(index)}
+      changed={(event, personId) => props.changePersonHandler(event, personId)}
+    />
+  }
 
   return(
     <div>
@@ -21,4 +25,4 @@ const Cockpit = (props) => {
   )
 }
 
-export default Cockpit;
+export default cockpit;
