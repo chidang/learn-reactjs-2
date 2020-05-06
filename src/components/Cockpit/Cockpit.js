@@ -3,9 +3,9 @@ import './Cockpit.css';
 import Persons from '../Persons/Persons';
 
 const cockpit = props => {
-  // useEffect(() => {
-  //   console.log('[Cockpit.js] useEffect');
-  // });
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect');
+  });
 
   let personsEl  = null;
 
