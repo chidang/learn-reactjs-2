@@ -1,5 +1,6 @@
-import React, {Component} from 'react'
-import './Person.css'
+import React, {Component} from 'react';
+import './Person.css';
+import Aux from '../../../hoc/Aux';
 
 class Person extends Component {
   constructor(props){
@@ -14,7 +15,7 @@ class Person extends Component {
   
   render(){
     return (
-      <div className="Person">
+      <Aux>
         <p onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old</p>
         <p>{this.props.children}</p>
         <input
@@ -24,7 +25,7 @@ class Person extends Component {
           // ref={(inputEl) => {this.inputElement = inputEl;}}
           ref={this.inputElementRef}
         />
-      </div>
+      </Aux>
     )
   }
 
