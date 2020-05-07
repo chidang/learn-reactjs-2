@@ -11,7 +11,8 @@ class App extends Component {
       {id: 'a1', name: 'Chi', age: 32},
       {id: 'a2', name: 'Khanh', age: 31}
     ],
-    showPersons: false
+    showPersons: false,
+    changeCounter: 0
   }
 
   togglePersonsHandler = () => {
@@ -33,7 +34,12 @@ class App extends Component {
     const person = persons[personIndex];
     person.name = event.target.value;
     persons[personIndex] = person;
-    this.setState({persons: persons})
+    this.setState( (prevState, props) =>  {
+      return {
+          persons: persons,
+          changeCounter: prevState.changeCounter + 1
+        }
+    });
   }
 
   static getDerivedStateFromProps(props, state){
