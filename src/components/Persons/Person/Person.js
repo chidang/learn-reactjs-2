@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './Person.css';
 import Aux from '../../../hoc/Aux';
+import WithClass from '../../../hoc/WithClass';
 
 class Person extends Component {
   constructor(props){
@@ -31,4 +32,4 @@ class Person extends Component {
 
 }
 
-export default Person;
+export default WithClass(Person, 'Person');
