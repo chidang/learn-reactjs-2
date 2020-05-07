@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Cockpit from '../components/Cockpit/Cockpit';
+import Persons from '../components/Persons/Persons';
 
 class App extends Component {
   state = {
@@ -59,16 +60,21 @@ class App extends Component {
 
   render () {
     console.log('[App.js] render')
+    let personsEl  = null;
+
+    if(this.state.showPersons){
+      personsEl = <Persons 
+        persons={this.state.persons}
+        click={(index) => this.removePersonHandler(index)}
+        changed={(event, personId) => this.changePersonHandler(event, personId)}
+      />
+    }
     return (
       <div className='App'>
-        <h1>This is my Reactjs App</h1>
         <Cockpit 
           togglePersonsHandler={this.togglePersonsHandler}
-          showPersons={this.state.showPersons}
-          persons={this.state.persons}
-          changePersonHandler={(event, index)=> this.changePersonHandler(event, index)}
-          removePersonHandler={(index) => this.removePersonHandler(index)}
         />
+        {personsEl}
       </div>
     )
   }
