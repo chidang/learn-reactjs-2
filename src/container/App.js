@@ -4,6 +4,7 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Persons/Persons';
 import WithClass from '../hoc/WithClass';
 import Aux from '../hoc/Aux';
+import AuthContext from '../context/AuthContext';
 
 class App extends Component {
   state = {
@@ -12,12 +13,17 @@ class App extends Component {
       {id: 'a2', name: 'Khanh', age: 31}
     ],
     showPersons: false,
-    changeCounter: 0
+    changeCounter: 0,
+    loggedIn: false
   }
 
   togglePersonsHandler = () => {
     const doesShowPersons = this.state.showPersons;
     this.setState({showPersons: !doesShowPersons});
+  }
+
+  loginHandler = () => {
+    this.setState({loggedIn: true})
   }
 
   removePersonHandler = (index) => {
@@ -75,15 +81,18 @@ class App extends Component {
         persons={this.state.persons}
         click={(index) => this.removePersonHandler(index)}
         changed={(event, personId) => this.changePersonHandler(event, personId)}
+        loggedIn={this.state.loggedIn}
       />
     }
     return (
-      <Aux>
-        <Cockpit 
-          togglePersonsHandler={this.togglePersonsHandler}
-        />
-        {personsEl}
-      </Aux>
+      <AuthContext.Provider value={{isAuth: this.state.loggedIn, login: this.loginHandler}}>
+        <Aux>
+          <Cockpit 
+            togglePersonsHandler={this.togglePersonsHandler}
+          />
+          {personsEl}
+        </Aux>
+      </AuthContext.Provider>
     )
   }
 }
